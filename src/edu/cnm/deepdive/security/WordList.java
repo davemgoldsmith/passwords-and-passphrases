@@ -5,6 +5,7 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Properties;
+import java.util.Random;
 import java.io.BufferedReader;
 import java.io.IOException;
 
@@ -31,7 +32,8 @@ public class WordList {
 			} // end else if
 
 			String[] wordList = getWordList(WORD_LIST_FILE);
-			System.out.println(Arrays.toString(wordList)); // FIXME - get rid of this debugging
+			String[] selectedWords = getRandomWords(numWords, wordList);
+			System.out.println(getJoinedString(selectedWords));
 
 		} // end try
 			// generate and emit passphrase
@@ -76,5 +78,24 @@ public class WordList {
 			return words.toArray(new String[]{});
 		} //end try
 		} // end getWordList method
+	
+	public static String[] getRandomWords(int numWords, String[] wordList) {
+		String[] selection = new String[numWords];
+		Random rng = new Random();
+		for (int i = 0; i < selection.length; i++) {
+			int selectedPosition = rng.nextInt(wordList.length);
+			selection[i] = wordList[selectedPosition];
+		}
+	return selection;
+	} // end getRandomWords method
+	
+	private static String getJoinedString(String[] source) {
+		StringBuilder builder = new StringBuilder();
+		for (String item : source) {
+			builder.append(item);
+			builder.append(" ");
+		}
+		return builder.toString().trim();
+	}
 
 }// end class
