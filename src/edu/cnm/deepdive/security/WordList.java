@@ -1,14 +1,17 @@
 package edu.cnm.deepdive.security;
 
 import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Properties;
-
+import java.io.BufferedReader;
 import java.io.IOException;
 
 public class WordList {
 
 	public static final int MIN_WORDS = 5;
-
+	public static final String WORD_LIST_FILE = "resources/eff_large_wordlist.txt";
 	private static final String PROPERTIES_FILE = "resources/text.properties";
 
 	private static String usageMessage;
@@ -26,8 +29,12 @@ public class WordList {
 			else if (numWords < MIN_WORDS) {
 				System.out.println(warningMessage);
 			} // end else if
+
+			String[] wordList = getWordList(WORD_LIST_FILE);
+			System.out.println(Arrays.toString(wordList)); // FIXME - get rid of this debugging
+
 		} // end try
-			// TODO generate and emit passphrase
+			// generate and emit passphrase
 
 		catch (NumberFormatException ex) {
 			ex.printStackTrace();
@@ -40,12 +47,11 @@ public class WordList {
 		} catch (IOException ex) {
 			ex.printStackTrace();
 			System.exit(1);
-
-		}
-	}
+		} // end catch
+	} // end main method
 
 	private static void loadResources()
-			// TODO load resources into usageMEssage, errorMessage,
+			// load resources into usageMessage, errorMessage,
 			// warningMessage
 			throws IOException {
 		Properties properties = new Properties();
@@ -54,9 +60,21 @@ public class WordList {
 			usageMessage = properties.getProperty("usage.message");
 			errorMessage = properties.getProperty("error.message");
 			warningMessage = properties.getProperty("warning.message");
+		} // end try
+	} // end loadResources method
 
-		} // end throws
+	public static String[] getWordList(String listPath) 
+	throws IOException {
+		try (BufferedReader reader 
+				= new BufferedReader (
+						new InputStreamReader (
+								WordList.class.getClassLoader().getResourceAsStream(listPath)))) {
+			ArrayList<String> words = new ArrayList <>();
+			for (String line = reader.readLine(); line != null; line = reader.readLine()) {
+				words.add(line.split("\\s+")[1]);
+			} // end for
+			return words.toArray(new String[]{});
+		} //end try
+		} // end getWordList method
 
-	}
-
-} // end class
+}// end class
