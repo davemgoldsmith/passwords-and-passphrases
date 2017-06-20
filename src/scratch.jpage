@@ -1,5 +1,5 @@
 edu.cnm.deepdive.security.PasswordGenerator pg = 
-new edu.cnm.deepdive.security.PasswordGenerator(12, 24);
+new edu.cnm.deepdive.security.SecurePasswordGenerator(12, 24, true, false, false, false, false);
 
 
 
