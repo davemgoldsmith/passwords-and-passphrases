@@ -51,8 +51,8 @@ public class PasswordGenerator {
 	}
 /**
  *  Initialize generator for password of length in the range specified.
- * @param minLength
- * @param maxLength
+ * @param minLength /** minimum length parameter
+ * @param maxLength  /** maximum length parameter
  */
 	public PasswordGenerator(int minLength, int maxLength) {
 		this();

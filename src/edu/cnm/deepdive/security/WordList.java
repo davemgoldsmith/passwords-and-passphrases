@@ -3,7 +3,6 @@ package edu.cnm.deepdive.security;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Properties;
 import java.util.Random;
 import java.io.BufferedReader;
