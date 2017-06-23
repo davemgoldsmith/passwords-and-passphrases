@@ -3,7 +3,7 @@
  */
 package edu.cnm.deepdive.security;
 
-import java.util.Arrays;
+
 import java.util.HashMap;
 
 import org.apache.commons.cli.CommandLine;
@@ -69,23 +69,20 @@ public class Guard {
 														.hasArg(false)
 														.build();
 			Option excludeLowerOption = Option.builder("s").longOpt("exclude-lower")
-														.hasArg(false)
-														
+														.hasArg(false)														
 														.build();
 			Option excludeDigitsOption = Option.builder("n").longOpt("exclude-digits")
-														.hasArg(false)
-													
+														.hasArg(false)													
 														.build();
 			Option excludePunctuationOption = Option.builder("p").longOpt("exclude-punctuation")
-														.hasArg(false)
-														
-														
+														.hasArg(false)											
 														.build();
 			Option includeAmbiguousOption = Option.builder("a").longOpt("include-ambiguous")
-														.hasArg(false)
-														.numberOfArgs(1)
-														.type(String.class)
+														.hasArg(false)														
 														.build();
+			Option modeOption = Option.builder("m").longOpt("password-mode")
+													.hasArg(false)
+													.build();
 			
 			
 			Options opts = new Options().addOption(lengthOption)
@@ -95,7 +92,8 @@ public class Guard {
 										.addOption(excludeLowerOption)
 										.addOption(excludeDigitsOption)
 										.addOption(excludePunctuationOption)
-										.addOption(includeAmbiguousOption);
+										.addOption(includeAmbiguousOption)
+										.addOption(modeOption);
 
 			DefaultParser parser = new DefaultParser();
 			HashMap<String, Object> map = new HashMap<>();
@@ -114,10 +112,18 @@ public class Guard {
 	}
 	
 	static String generateArtifact(HashMap<String, Object> map) {
+		if (map.containsKey("m")) {
+			PasswordGenerator gen = new SecurePasswordGenerator();
+			// TODO set fields for all specified options.
+		}
 		return null;  // FIXME
 	}
 
-	static void emitArtifact (String Artifact) {
+	static void emitArtifact (String artifact) {
+		//TODO make this smarter
+		System.out.println(artifact);
+	
 		
 	}
+	
 }

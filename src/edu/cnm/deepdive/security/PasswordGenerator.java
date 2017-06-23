@@ -20,72 +20,28 @@ public class PasswordGenerator {
 	private static final String UPPERCASE = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 	private static final String LOWERCASE = UPPERCASE.toLowerCase();
 	private static final String NUMBERS = "0123456789";
+	//*Punctuation characters that may optionally be included in the password. */
 	private static final String PUNCTUATION = "!@#$%&*<>,.";
 	private static final String AMBIGUOUS = "[Ol]";
+	private Random rng = null;
 	private char[] pool = null;
 	private int minLength = 6;
 	private int maxLength = 12;
-	protected Random rng = new Random();
-	private boolean includeUpperCase = true;
-	private boolean includeLowerCase = true;
-	private boolean includeNumbers = true;
-	private boolean includePunctuation = false;
-	private boolean excludeAmbiguous = true;
-
+	private boolean upperCaseIncluded = true;
+	private boolean lowerCaseIncluded = true;
+	private boolean numbersIncluded = true;
+	private boolean punctuationIncluded = false;
+	private boolean ambiguousIncluded = true;
+	private String delimiter = "";
+			
 	/**
-	 * Test rig for generating passwords.
-	 * 
-	 * @param args
-	 *            Command line parameters for generation options.
-	 */
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-	}
-	
-/**
  * Constructor which generates random numbers.
  */
 	public PasswordGenerator() {
 		
-		rng = new Random();
+		setRng(new Random());
 	}
 /**
- *  Initialize generator for password of length in the range specified.
- * @param minLength /** minimum length parameter
- * @param maxLength  /** maximum length parameter
- */
-	public PasswordGenerator(int minLength, int maxLength) {
-		this();
-		System.out.println("In overloaded constructor");
-		this.minLength = minLength;
-		this.maxLength = maxLength;
-	}
-	/**
-	 *  Constructor that creates new instance objects of the below options regarding 
-	 *  the generation of passwords.
-	 * @param minLength
-	 * @param maxLength
-	 * @param includeUpperCase
-	 * @param includeLowerCase
-	 * @param includeNumbers
-	 * @param includePunctuation
-	 * @param excludeAmbiguous
-	 */
-	public PasswordGenerator(int minLength, int maxLength, 
-			boolean includeUpperCase, boolean includeLowerCase,
-			boolean includeNumbers, boolean includePunctuation,
-			boolean excludeAmbiguous) {
-		this(minLength, maxLength);
-		
-		this.includeUpperCase = includeUpperCase;
-		this.includeLowerCase = includeLowerCase;
-		this.includeNumbers = includeNumbers;
-		this.includePunctuation = includePunctuation;
-		this.excludeAmbiguous = excludeAmbiguous;
-	
-			}
-
-	/**
 	 * @return the maxLength
 	 */
 	public int getMaxLength() {
@@ -118,39 +74,150 @@ public class PasswordGenerator {
 	private void setupPool(){
 		if (pool == null){
 			StringBuilder builder = new StringBuilder();
-			if (includeLowerCase){
+			if (isLowerCaseIncluded()){
 				builder.append(LOWERCASE);
 				}
-			if (includeUpperCase){
+			if (isUpperCaseIncluded()){
 				builder.append(UPPERCASE);
 				}
-			if (includeNumbers){
+			if (isNumbersIncluded()){
 				builder.append(NUMBERS);
 				}
-			if (includePunctuation){
+			if (isPunctuationIncluded()){
 				builder.append(PUNCTUATION);
 				}
 			String work = builder.toString();
-			if (excludeAmbiguous){
+			if (isAmbiguousIncluded()){
 			work.replaceAll(AMBIGUOUS, "");
 				} 
 		pool = work.toCharArray();
 		}
+		
 	}
+	/**
+	 * 
+	 */
+	protected void setupRng() {
+		if (rng == null){
+			rng = new Random();
+		}
+				
+	}
+	
 	/**
 	 * 	Method generate that puts the characters together in a string to create the completed password.
 	 * @return Returns the finished password string.
 	 */
 	public String generate() {
 		setupPool();
-		int passwordLength = minLength + rng.nextInt(maxLength - minLength);
+		setupRng();
+		
+		int passwordLength = minLength + getRng().nextInt(maxLength - minLength);
 		StringBuilder builder = new StringBuilder();
 		for (int i = 0; i < passwordLength; i++) {
-			char selection = pool[rng.nextInt(pool.length)];
+			char selection = pool[getRng().nextInt(pool.length)];
 			builder.append(selection);
 			
 		}
 		return builder.toString();
+	}
+
+	/**
+	 * @return the upperCaseIncluded
+	 */
+	public boolean isUpperCaseIncluded() {
+		return upperCaseIncluded;
+	}
+
+	/**
+	 * @param upperCaseIncluded the upperCaseIncluded to set
+	 */
+	public void setUpperCaseIncluded(boolean upperCaseIncluded) {
+		this.upperCaseIncluded = upperCaseIncluded;
+	}
+
+	/**
+	 * @return the lowerCaseIncluded
+	 */
+	public boolean isLowerCaseIncluded() {
+		return lowerCaseIncluded;
+	}
+
+	/**
+	 * @param lowerCaseIncluded the lowerCaseIncluded to set
+	 */
+	public void setLowerCaseIncluded(boolean lowerCaseIncluded) {
+		this.lowerCaseIncluded = lowerCaseIncluded;
+	}
+
+	/**
+	 * @return the numbersIncluded
+	 */
+	public boolean isNumbersIncluded() {
+		return numbersIncluded;
+	}
+
+	/**
+	 * @param numbersIncluded the numbersIncluded to set
+	 */
+	public void setNumbersIncluded(boolean numbersIncluded) {
+		this.numbersIncluded = numbersIncluded;
+	}
+
+	/**
+	 * @return the punctuationIncluded
+	 */
+	public boolean isPunctuationIncluded() {
+		return punctuationIncluded;
+	}
+
+	/**
+	 * @param punctuationIncluded the punctuationIncluded to set
+	 */
+	public void setPunctuationIncluded(boolean punctuationIncluded) {
+		this.punctuationIncluded = punctuationIncluded;
+	}
+
+	/**
+	 * @return the ambiguousIncluded
+	 */
+	public boolean isAmbiguousIncluded() {
+		return ambiguousIncluded;
+	}
+
+	/**
+	 * @param ambiguousIncluded the ambiguousIncluded to set
+	 */
+	public void setAmbiguousIncluded(boolean ambiguousIncluded) {
+		this.ambiguousIncluded = ambiguousIncluded;
+	}
+
+	/**
+	 * @return the delimiter
+	 */
+	public String getDelimiter() {
+		return delimiter;
+	}
+
+	/**
+	 * @param delimiter the delimiter to set
+	 */
+	public void setDelimiter(String delimiter) {
+		this.delimiter = delimiter;
+	}
+
+	/**
+	 * @return the rng
+	 */
+	protected Random getRng() {
+		return rng;
+	}
+
+	/**
+	 * @param rng the rng to set
+	 */
+	protected void setRng(Random rng) {
+		this.rng = rng;
 	}
 
 }
