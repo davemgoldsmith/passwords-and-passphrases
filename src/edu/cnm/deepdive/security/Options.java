@@ -16,6 +16,12 @@ import org.apache.commons.cli.ParseException;
  * @author davem
  *
  */
+
+//TODO add constants regarding warnings and errors.
+// add exception handling.
+// add constants in conflict warnings from message properties
+// add constants in options properties 
+
 public class Options {
 	
 	 private static final String OPTIONS_DESCRIPTION_BUNDLE = "resources/options";
@@ -25,13 +31,13 @@ public class Options {
 	 private static final String LIST_OPTION_KEY	 ="word-list.option"; 
 	 private static final String MODE_OPTION_KEY ="mode.option";
 	 private static final String EXCLUDE_UPPER_OPTION_KEY="upper.option";
-	 private static final String EXCLUCDE_LOWER_OPTION_KEY="lower.option";
+	 private static final String EXCLUDE_LOWER_OPTION_KEY="lower.option";
 	 private static final String EXCLUDE_DIGITS_OPTION_KEY = "digits.option"; 
 	 private static final String EXCLUDE_PUNCTUATION_OPTION_KEY = "punctuation.option";
 	 private static final String EXCLUDE_AMBIGUOUS_OPTION_KEY= "ambiguous.option";
 	
 	static HashMap<String, Object> getOptions(String[] args) {
-		
+	//TODO add options 
 		try {
 			ResourceBundle bundle = ResourceBundle.getBundle(OPTIONS_DESCRIPTION_BUNDLE);
 			Option helpOption = Option.builder("?").longOpt("help")					
@@ -65,23 +71,23 @@ public class Options {
 			
 			Option excludeUpperOption = Option.builder("b").longOpt("exclude-upper")
 														.hasArg(false)
-														.desc(bundle.getString(UPPER_OPTION_KEY))
+														.desc(bundle.getString(EXCLUDE_UPPER_OPTION_KEY))
 														.build();
 			Option excludeLowerOption = Option.builder("s").longOpt("exclude-lower")
 														.hasArg(false)
-														.desc(bundle.getString(LOWER_OPTION_KEY))
+														.desc(bundle.getString(EXCLUDE_LOWER_OPTION_KEY))
 														.build();
 			Option excludeDigitsOption = Option.builder("n").longOpt("exclude-digits")
 														.hasArg(false)	
-														.desc(bundle.getString(DIGITS_OPTION_KEY))
+														.desc(bundle.getString(EXCLUDE_DIGITS_OPTION_KEY))
 														.build();
 			Option excludePunctuationOption = Option.builder("p").longOpt("exclude-punctuation")
 														.hasArg(false)
-														.desc(bundle.getString(PUNCTUATION_OPTION_KEY))
+														.desc(bundle.getString(EXCLUDE_PUNCTUATION_OPTION_KEY))
 														.build();
 			Option includeAmbiguousOption = Option.builder("a").longOpt("include-ambiguous")
 														.hasArg(false)
-														.desc(bundle.getString(AMBIGUOUS_OPTION_KEY))
+														.desc(bundle.getString(EXCLUDE_AMBIGUOUS_OPTION_KEY))
 														.build();
 			Option modeOption = Option.builder("m").longOpt("password-mode")
 														.hasArg(false)
@@ -91,7 +97,7 @@ public class Options {
 			
 			org.apache.commons.cli.Options opts 
 				= new org.apache.commons.cli.Options().addOption(lengthOption)
-														.addOption(helpOption)  //Nate
+														.addOption(helpOption)  
 														.addOption(delimiterOption)
 														.addOption(wordListOption)
 														.addOption(excludeUpperOption)
@@ -104,7 +110,7 @@ public class Options {
 			DefaultParser parser = new DefaultParser();
 			HashMap<String, Object> map = new HashMap<>();
 			CommandLine cmdLine = parser.parse(opts,  args);
-			if (cmdLine.hasOption('?')) {										//Nate
+			if (cmdLine.hasOption('?')) {										
 				new HelpFormatter().printHelp("These are the options", opts);  //FIXME
 			}
 			for (Option option : cmdLine.getOptions()) {
@@ -116,6 +122,9 @@ public class Options {
 			
 		} catch (ParseException ex) {
 			//TODO handle this exception with a usage display.
+			// add errors and warnings regarding usage warnings 
+			// as well as error messages that state what will not work 
+			//properly
 			return null;
 		}
 	}

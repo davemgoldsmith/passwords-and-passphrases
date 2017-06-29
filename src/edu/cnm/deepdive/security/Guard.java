@@ -37,12 +37,14 @@ public class Guard {
 		if (map.containsKey("m")) {
 			PasswordGenerator gen = new SecurePasswordGenerator();
 			// TODO set fields for all specified options.
+			// 
 		}   //if
 		return null; // FIXME
 	}  //generateArtifact
 
 	static void emitArtifact(String artifact) {
 		// TODO make this smarter
+		// create 
 		System.out.println(artifact);
 	} //emit artifact
 
