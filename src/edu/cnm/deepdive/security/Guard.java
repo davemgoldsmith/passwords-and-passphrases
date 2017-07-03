@@ -30,8 +30,8 @@ public class Guard {
 
 		HashMap<String, Object> map = Options.getOptions(args);
 		if (map != null){
-		String artifact = generateArtifact(map);
-		emitArtifact(artifact);
+			String artifact = generateArtifact(map);
+			emitArtifact(artifact);
 		} //if
 	}  // main
 
