@@ -97,7 +97,7 @@ public class PasswordGenerator {
 		
 	}
 	/**
-	 * 
+	 * Sets up starting a new Random number generator, if one has not been already invoked.
 	 */
 	protected void setupRng() {
 		if (rng == null){
@@ -107,7 +107,7 @@ public class PasswordGenerator {
 	}
 	
 	/**
-	 * 	Method generate that puts the characters together in a string to create the completed password.
+	 * 	Generate method that puts the characters together in a string to create the completed password.
 	 * @return Returns the finished password string.
 	 */
 	public String generate() {

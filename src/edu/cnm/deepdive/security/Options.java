@@ -28,7 +28,10 @@ import org.apache.commons.cli.UnrecognizedOptionException;
 // add constants in options properties 
 
 public class Options {
-
+	
+	/**
+	 * Constants that describe the minimum and maximum recommended passwords and passphrases.
+	 */
 	public static final int MAXIMUM_RECOMMENDED_PASSPHRASE_LENGTH = 10;
 	public static final int MINIMUM_RECOMMENDED_PASSPHRASE_LENGTH = 6;
 	public static final int MAXIMUM_RECOMMENDED_PASSWORD_LENGTH = 16;

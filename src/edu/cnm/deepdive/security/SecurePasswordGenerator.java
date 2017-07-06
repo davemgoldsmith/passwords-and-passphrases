@@ -5,8 +5,8 @@ import java.security.SecureRandom;
 
 /**
  * Password generator using cryptographically secure random number generator.
- * this utilizes PasswordGenerator, and simply substitutes the more robust
- * rng.
+ * This utilizes PasswordGenerator, and simply substitutes the more robust
+ * random number generator.
  * 
  * @author Dave
  *
@@ -15,8 +15,11 @@ public class SecurePasswordGenerator extends PasswordGenerator {
 
 	public SecurePasswordGenerator() {
 		super ();
-		// TODO Auto-generated constructor stub
+		
 	}
+	/**
+	 * Uses an instance of Secure password generator, rather than password generator.
+	 */
 	@Override
 protected void setupRng() {
 	try {

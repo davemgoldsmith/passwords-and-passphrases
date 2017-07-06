@@ -63,14 +63,12 @@ public class Guard {
 					break;
 					default:
 						break;
-					
-				}
-			}
+				} //case
+			} //for
 			return gen.generate();
-			
-			// TODO set fields for all relevant and specified options.
-			// 
+						
 		}   //if
+		
 		else {
 			PassphraseGenerator gen = new PassphraseGenerator();
 			for (Map.Entry<String, Object> entry : map.entrySet()){
@@ -90,8 +88,8 @@ public class Guard {
 						
 					default:
 						break;
-				}
-				}
+				} //case
+			} //for
 			return gen.generate();
 		} //else
 			

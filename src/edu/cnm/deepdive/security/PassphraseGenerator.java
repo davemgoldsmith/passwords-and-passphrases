@@ -15,11 +15,14 @@ import java.util.ResourceBundle;
  */
 public class PassphraseGenerator {
 	
-	/** */
+	/**Constant to define that the default word list will be the resources/wordlist "wordlist.properties" */
 	public static final String DEFAULT_WORD_LIST = "resources/wordlist";
-	/** */
+	
+	/**Constant to define the default delimiter between words in the passphrase will be a single space, 
+	 * if not specified in the command line */
 	public static final String DEFAULT_DELIMITER = " ";
-	/** */
+	
+	/**Constant that defines that the default length of a passphrase is 6 words. */
 	public static final int DEFAULT_lENGTH = 6;
 	
 	private String wordList = DEFAULT_WORD_LIST;
@@ -28,17 +31,17 @@ public class PassphraseGenerator {
 	private Random rng = null;
 	private ArrayList<String> pool = null;
 	
-	
-	
 	/**
-	 * 
+	 * Passphrase generator that invokes the superclass guard.
 	 */
 	public PassphraseGenerator() {
 		super();
-		// TODO Auto-generated constructor stub
+		
 	}
 	/**
-	 * 
+	 * setupPool constructor that creates the pool of words to be used in the
+	 * passphrase generation, by getting the wordList from the resource bundle 
+	 * called wordlist.properties. Note: the resource bundle can get different wordlists.
 	 */
 	protected void setupPool(){
 		ResourceBundle bundle = ResourceBundle.getBundle(wordList);
@@ -52,7 +55,7 @@ public class PassphraseGenerator {
 	}
 	
 	/**
-	 * 
+	 * setupRng method that invokes a new SecureRandom random number generator.
 	 */
 	protected void setupRng(){
 		rng = new SecureRandom();
@@ -66,10 +69,11 @@ public class PassphraseGenerator {
 			setupRng();
 		}
 				StringBuilder builder = new StringBuilder();
-		for (int i = 0; i < length; i++) {
-			String word = pool.get(rng.nextInt(pool.size()));
-			builder.append(word);
-			builder.append(delimiter);
+				String word = pool.get(rng.nextInt(pool.size()));
+				builder.append(word);
+		for (int i = 0; i < length - 1; i++) {
+			word = pool.get(rng.nextInt(pool.size()));
+			builder.append(delimiter + word);
 			}
 		return builder.toString().trim();
 	}
@@ -101,6 +105,7 @@ public class PassphraseGenerator {
 	public void setDelimiter(String delimiter) {
 		this.delimiter = delimiter;
 	}
+	
 	/**
 	 * @return the length
 	 */
@@ -129,7 +134,4 @@ public class PassphraseGenerator {
 		this.rng = rng;
 	}
 	
-	
-	
-
-}
+} //Passphrase generator class
